@@ -47,8 +47,7 @@
             <items>
                 <item>
                     <name>CPU Temperature</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.1.4.2.0</snmp_oid>
                     <key>cpu.temp</key>
                     <delay>30m</delay>
@@ -71,8 +70,7 @@
                 </item>
                 <item>
                     <name>Disk IOPS</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>1.3.6.1.4.1.24681.1.4.1.11.5.6.2.1.3.1</snmp_oid>
                     <key>disk.iops</key>
                     <delay>15m</delay>
@@ -86,8 +84,7 @@
                 </item>
                 <item>
                     <name>Disk latency</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>1.3.6.1.4.1.24681.1.4.1.11.5.6.2.1.4.1</snmp_oid>
                     <key>disk.latency</key>
                     <delay>15m</delay>
@@ -110,8 +107,7 @@
                 </item>
                 <item>
                     <name>System Temperature</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.1.1.2.1.7.1</snmp_oid>
                     <key>system.temp</key>
                     <delay>30m</delay>
@@ -127,16 +123,14 @@
             <discovery_rules>
                 <discovery_rule>
                     <name>Disk Discovery</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>discovery[{#HDDINDEX},1.3.6.1.4.1.24681.1.4.1.1.1.1.5.2.1.1]</snmp_oid>
                     <key>disk.discovery</key>
                     <delay>15m</delay>
                     <item_prototypes>
                         <item_prototype>
                             <name>HDD {#HDDINDEX}: Capacity</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.1.5.2.1.9.{#HDDINDEX}</snmp_oid>
                             <key>hdd.capacity[{#HDDINDEX}]</key>
                             <delay>1h</delay>
@@ -151,8 +145,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>HDD {#HDDINDEX}: Model</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.1.5.2.1.8.{#HDDINDEX}</snmp_oid>
                             <key>hdd.model[{#HDDINDEX}]</key>
                             <delay>1h</delay>
@@ -167,8 +160,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>HDD {#HDDINDEX}: Hot Spare</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.1.5.2.1.7.{#HDDINDEX}</snmp_oid>
                             <key>hdd.spare[{#HDDINDEX}]</key>
                             <delay>1h</delay>
@@ -185,8 +177,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>HDD {#HDDINDEX}: State</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.3.11.1.4.{#HDDINDEX}</snmp_oid>
                             <key>hdd.state[{#HDDINDEX}]</key>
                             <delay>5m</delay>
@@ -208,8 +199,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>HDD {#HDDINDEX}: SMART Status</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.1.5.2.1.5.{#HDDINDEX}</snmp_oid>
                             <key>hdd.status[{#HDDINDEX}]</key>
                             <delay>30m</delay>
@@ -235,8 +225,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>HDD {#HDDINDEX}: Temperature</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.1.5.2.1.6.{#HDDINDEX}</snmp_oid>
                             <key>hdd.temp[{#HDDINDEX}]</key>
                             <delay>30m</delay>
@@ -274,16 +263,14 @@
                 </discovery_rule>
                 <discovery_rule>
                     <name>FAN Discovery</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>discovery[{#FANINDEX},1.3.6.1.4.1.24681.1.4.1.1.1.1.2.2.1.1]</snmp_oid>
                     <key>fan.discovery</key>
                     <delay>15m</delay>
                     <item_prototypes>
                         <item_prototype>
                             <name>FAN {#FANINDEX}: Name</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.3.15.1.2.{#FANINDEX}</snmp_oid>
                             <key>fan.name[{#FANINDEX}]</key>
                             <delay>1h</delay>
@@ -298,8 +285,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>FAN {#FANINDEX}: Speed</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.1.2.2.1.5.{#FANINDEX}</snmp_oid>
                             <key>fan.speed[{#FANINDEX}]</key>
                             <delay>30m</delay>
@@ -313,8 +299,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>FAN {#FANINDEX}: Status</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.1.2.2.1.4.{#FANINDEX}</snmp_oid>
                             <key>fan.status[{#FANINDEX}]</key>
                             <delay>30m</delay>
@@ -333,16 +318,14 @@
                 </discovery_rule>
                 <discovery_rule>
                     <name>LUN Discovery</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>discovery[{#LUNINDEX},1.3.6.1.4.1.24681.1.4.1.1.2.1.11.2.1.1]</snmp_oid>
                     <key>lun.discovery</key>
                     <delay>15m</delay>
                     <item_prototypes>
                         <item_prototype>
                             <name>LUN {#LUNINDEX}: Name</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.2.1.11.2.1.3.{#LUNINDEX}</snmp_oid>
                             <key>lun.name[{#LUNINDEX}]</key>
                             <delay>1h</delay>
@@ -357,8 +340,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>LUN {#LUNINDEX}: Status</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.2.1.11.2.1.5.{#LUNINDEX}</snmp_oid>
                             <key>lun.status[{#LUNINDEX}]</key>
                             <delay>15m</delay>
@@ -385,16 +367,14 @@
                 </discovery_rule>
                 <discovery_rule>
                     <name>Pool Discovery</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>discovery[{#POOLINDEX},1.3.6.1.4.1.24681.1.4.1.1.1.2.2.2.1.1]</snmp_oid>
                     <key>pool.discovery</key>
                     <delay>15m</delay>
                     <item_prototypes>
                         <item_prototype>
                             <name>Pool {#POOLINDEX}: Capacity</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.2.2.2.1.3.{#POOLINDEX}</snmp_oid>
                             <key>pool.capacity[{#POOLINDEX}]</key>
                             <delay>15m</delay>
@@ -432,8 +412,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>Pool {#POOLINDEX}: Free size</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.2.2.2.1.4.{#POOLINDEX}</snmp_oid>
                             <key>pool.freeSize[{#POOLINDEX}]</key>
                             <delay>15m</delay>
@@ -448,8 +427,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>Pool {#POOLINDEX}: Status</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.2.2.2.1.5.{#POOLINDEX}</snmp_oid>
                             <key>pool.status[{#POOLINDEX}]</key>
                             <delay>15m</delay>
@@ -473,16 +451,14 @@
                 </discovery_rule>
                 <discovery_rule>
                     <name>RAID Discovery</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>discovery[{#RAIDINDEX},1.3.6.1.4.1.24681.1.4.1.1.1.2.1.2.1.1]</snmp_oid>
                     <key>raid.discovery</key>
                     <delay>15m</delay>
                     <item_prototypes>
                         <item_prototype>
                             <name>RAID {#RAIDINDEX}: Capacity</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.2.1.2.1.3.{#RAIDINDEX}</snmp_oid>
                             <key>raid.capacity[{#RAIDINDEX}]</key>
                             <delay>1h</delay>
@@ -497,8 +473,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>RAID {#RAIDINDEX}: Free size</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.2.1.2.1.4.{#RAIDINDEX}</snmp_oid>
                             <key>raid.freeSize[{#RAIDINDEX}]</key>
                             <delay>1h</delay>
@@ -513,8 +488,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>RAID {#RAIDINDEX}: Level</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.2.1.2.1.7.{#RAIDINDEX}</snmp_oid>
                             <key>raid.level[{#RAIDINDEX}]</key>
                             <delay>1h</delay>
@@ -528,8 +502,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>RAID {#RAIDINDEX}: State</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.2.1.2.1.5.{#RAIDINDEX}</snmp_oid>
                             <key>raid.state[{#RAIDINDEX}]</key>
                             <delay>15m</delay>
@@ -556,16 +529,14 @@
                 </discovery_rule>
                 <discovery_rule>
                     <name>Volume Discovery</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>discovery[{#VOLUMEINDEX},1.3.6.1.4.1.24681.1.4.1.1.1.2.3.2.1.1]</snmp_oid>
                     <key>volume.discovery</key>
                     <delay>15m</delay>
                     <item_prototypes>
                         <item_prototype>
                             <name>Volume {#VOLUMEINDEX}: Capacity</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.2.3.2.1.3.{#VOLUMEINDEX}</snmp_oid>
                             <key>volume.capacity[{#VOLUMEINDEX}]</key>
                             <delay>15m</delay>
@@ -603,8 +574,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>Volume {#VOLUMEINDEX}: Free size</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.2.3.2.1.4.{#VOLUMEINDEX}</snmp_oid>
                             <key>volume.freeSize[{#VOLUMEINDEX}]</key>
                             <delay>15m</delay>
@@ -619,8 +589,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>Volume {#VOLUMEINDEX}: Name</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.2.3.2.1.8.{#VOLUMEINDEX}</snmp_oid>
                             <key>volume.name[{#VOLUMEINDEX}]</key>
                             <delay>1h</delay>
@@ -635,8 +604,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>Volume {#VOLUMEINDEX}: Status</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.4.1.24681.1.4.1.1.1.2.3.2.1.5.{#VOLUMEINDEX}</snmp_oid>
                             <key>volume.status[{#VOLUMEINDEX}]</key>
                             <delay>15m</delay>
