@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>4.4</version>
-    <date>2020-08-17T20:00:26Z</date>
+    <version>5.0</version>
+    <date>2020-08-29T11:15:04Z</date>
     <groups>
         <group>
             <name>Templates/Network devices</name>
@@ -13,7 +13,7 @@
             <name>Template SNMP QNAP</name>
             <templates>
                 <template>
-                    <name>Template Module Generic SNMPv2</name>
+                    <name>Template Net Network Generic Device SNMP</name>
                 </template>
             </templates>
             <groups>
@@ -543,11 +543,12 @@
                             </applications>
                             <trigger_prototypes>
                                 <trigger_prototype>
-                                    <expression>{iregexp(Ready)}=0</expression>
+                                    <expression>{iregexp(&quot;^Ready|Synchronizing&quot;)}=0</expression>
                                     <name>Faulty state of RAID {#RAIDINDEX}</name>
                                     <opdata>Current state: {ITEM.VALUE}</opdata>
                                     <priority>HIGH</priority>
                                     <description>RAID has reported a faulty state.</description>
+                                    <manual_close>YES</manual_close>
                                 </trigger_prototype>
                             </trigger_prototypes>
                         </item_prototype>
@@ -584,7 +585,7 @@
                             <delay>15m</delay>
                             <history>7d</history>
                             <trends>7d</trends>
-                            <params>last(volume.freeSize[{#VOLUMEINDEX}])/last(	volume.capacity[{#VOLUMEINDEX}])*100</params>
+                            <params>last(volume.freeSize[{#VOLUMEINDEX}])/last(volume.capacity[{#VOLUMEINDEX}])*100</params>
                             <applications>
                                 <application>
                                     <name>Volumes</name>
