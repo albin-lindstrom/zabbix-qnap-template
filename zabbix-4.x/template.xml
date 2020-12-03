@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-08-29T11:15:04Z</date>
+    <date>2020-12-03T22:31:51Z</date>
     <groups>
         <group>
             <name>Templates/Network devices</name>
@@ -27,6 +27,9 @@
                 </application>
                 <application>
                     <name>iSCSI &amp; LUN</name>
+                </application>
+                <application>
+                    <name>Network</name>
                 </application>
                 <application>
                     <name>Pools</name>
@@ -384,6 +387,77 @@
                     </item_prototypes>
                 </discovery_rule>
                 <discovery_rule>
+                    <name>Network interfaces discovery</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>discovery[{#IFINDEX},1.3.6.1.4.1.24681.1.2.9.1.1,{#IFNAME},1.3.6.1.4.1.24681.1.2.9.1.2]</snmp_oid>
+                    <key>network.discovery</key>
+                    <delay>15m</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFNAME}</macro>
+                                <value>{$NET_IF_MATCHES}</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Interface {#IFNAME}: Bits received</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>1.3.6.1.4.1.24681.1.2.9.1.3.{#IFINDEX}</snmp_oid>
+                            <key>net.if.received[{#IFINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <trends>7d</trends>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Network</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFNAME}: Bits sent</name>
+                            <type>SNMPV2</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <snmp_oid>1.3.6.1.4.1.24681.1.2.9.1.4.{#IFINDEX}</snmp_oid>
+                            <key>net.if.sent[{#IFINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <trends>7d</trends>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Network</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
                     <name>Pool Discovery</name>
                     <type>SNMPV2</type>
                     <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
@@ -553,6 +627,13 @@
                             </trigger_prototypes>
                         </item_prototype>
                     </item_prototypes>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>if(value == 'Single') { return 0; }
+return value;</params>
+                        </step>
+                    </preprocessing>
                 </discovery_rule>
                 <discovery_rule>
                     <name>Volume Discovery</name>
@@ -641,7 +722,8 @@
                             <key>volume.status[{#VOLUMEINDEX}]</key>
                             <delay>15m</delay>
                             <history>7d</history>
-                            <trends>7d</trends>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
                             <applications>
                                 <application>
                                     <name>Volumes</name>
@@ -649,8 +731,9 @@
                             </applications>
                             <trigger_prototypes>
                                 <trigger_prototype>
-                                    <expression>{last()}&lt;&gt;0</expression>
+                                    <expression>{iregexp(&quot;^Ready&quot;)}=0</expression>
                                     <name>Faulty state of volume {#VOLUMEINDEX}</name>
+                                    <opdata>Current state: {ITEM.VALUE}</opdata>
                                     <priority>DISASTER</priority>
                                     <description>Volume is in a faulty state. Check as soon as possible.</description>
                                 </trigger_prototype>
@@ -674,6 +757,11 @@
                     <macro>{$HDD_TEMPERATURE_ALARM}</macro>
                     <value>50</value>
                     <description>Amount in centigrade when an alarm shall be raised</description>
+                </macro>
+                <macro>
+                    <macro>{$NET_IF_MATCHES}</macro>
+                    <value>^.*$</value>
+                    <description>Regex matches for network interfaces discovery. Matches to the inteface desc which is (eth0, eth1, etc)</description>
                 </macro>
                 <macro>
                     <macro>{$POOL_SIZE_ALARM}</macro>
