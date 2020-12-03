@@ -11,16 +11,17 @@ This template allows you to quickly get up and running with monitoring of QNAP l
    1. Set *SNMP community* to the same value as your macro or the other way around.
 
 ## 🏷️ Features
-- ✔️ Auto discovering of  hard drives, LUNs, pools and volumes
+- ✔️ Auto discovering of  hard drives, LUNs, pools, volumes and network interfaces
 - ✔️  Triggers for discovered items
 - ✔️ Monitoring  state of RAID(s)
-- 🔶 Linked with **Template Module Generic SNMPv2**
+- 🔶 Linked with **Template Module Generic SNMPv2** (4.x) and **Template Module ICMP Ping** (5.x)
 
 ## Supported models
-Updated as of 2020-08-17.
+Updated as of 2020-12-03.
 - TS-432XU-RP
+- TS-X32U
+- TS-X63U
+- TS-H886
 
-## Issues
-- none so far?
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
