@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2022-02-18T16:10:21Z'
+  date: '2022-02-18T17:07:37Z'
   groups:
     -
       uuid: 36bff6c29af64692839d077febfc7079
@@ -543,6 +543,8 @@ zabbix_export:
               history: 7d
               trends: '0'
               value_type: CHAR
+              valuemap:
+                name: 'LUN Status'
               tags:
                 -
                   tag: component
@@ -838,13 +840,13 @@ zabbix_export:
           uuid: a3c1c9e988b344da837b205f8ee4b34f
           name: 'Volume Discovery'
           type: SNMP_AGENT
-          snmp_oid: 'discovery[{#VOLUMEINDEX},1.3.6.1.4.1.24681.1.4.1.1.1.2.3.2.1.1]'
+          snmp_oid: 'discovery[{#VOLUMEINDEX},1.3.6.1.4.1.24681.1.4.1.1.1.2.3.2.1.1,{#VOLUMENAME},1.3.6.1.4.1.24681.1.4.1.1.1.2.3.2.1.8]'
           key: volume.discovery
           delay: 15m
           item_prototypes:
             -
               uuid: ef18697fef75460f9fbb04961c2c7954
-              name: 'Volume {#VOLUMEINDEX}: Capacity'
+              name: 'Volume {#VOLUMENAME}: Capacity'
               type: SNMP_AGENT
               snmp_oid: '1.3.6.1.4.1.24681.1.4.1.1.1.2.3.2.1.3.{#VOLUMEINDEX}'
               key: 'volume.capacity[{#VOLUMEINDEX}]'
@@ -852,13 +854,18 @@ zabbix_export:
               history: 7d
               trends: 7d
               units: B
+              preprocessing:
+                -
+                  type: MULTIPLIER
+                  parameters:
+                    - '1024'
               tags:
                 -
                   tag: component
                   value: volume
             -
               uuid: 0e8d862d141048d5ac31884eb9d84916
-              name: 'Volume {#VOLUMEINDEX}: Free size in %'
+              name: 'Volume {#VOLUMENAME}: Free size in %'
               type: CALCULATED
               key: 'volume.freePercentage[{#VOLUMEINDEX}]'
               delay: 15m
@@ -873,13 +880,13 @@ zabbix_export:
                 -
                   uuid: 8a85e1b34d624a15907612016a3b527e
                   expression: 'last(/Template SNMP QNAP/volume.freePercentage[{#VOLUMEINDEX}])<{$VOLUME_SIZE_ALARM}'
-                  name: 'Reaching threshold for volume {#VOLUMEINDEX} (<{$VOLUME_SIZE_ALARM}%)'
+                  name: 'Reaching threshold for volume {#VOLUMENAME} (<{$VOLUME_SIZE_ALARM}%)'
                   opdata: 'Current state: {ITEM.LASTVALUE1}'
                   priority: WARNING
                   description: 'The free size of the volume is reaching the threshold.'
             -
               uuid: b60fc010499843dd8db91e0f8c6b1ee5
-              name: 'Volume {#VOLUMEINDEX}: Free size'
+              name: 'Volume {#VOLUMENAME}: Free size'
               type: SNMP_AGENT
               snmp_oid: '1.3.6.1.4.1.24681.1.4.1.1.1.2.3.2.1.4.{#VOLUMEINDEX}'
               key: 'volume.freeSize[{#VOLUMEINDEX}]'
@@ -887,27 +894,18 @@ zabbix_export:
               history: 7d
               trends: 7d
               units: B
-              tags:
+              preprocessing:
                 -
-                  tag: component
-                  value: volume
-            -
-              uuid: 654c835bc99f4d86b62041b7d03774cb
-              name: 'Volume {#VOLUMEINDEX}: Name'
-              type: SNMP_AGENT
-              snmp_oid: '1.3.6.1.4.1.24681.1.4.1.1.1.2.3.2.1.8.{#VOLUMEINDEX}'
-              key: 'volume.name[{#VOLUMEINDEX}]'
-              delay: 1h
-              history: 7d
-              trends: '0'
-              value_type: TEXT
+                  type: MULTIPLIER
+                  parameters:
+                    - '1024'
               tags:
                 -
                   tag: component
                   value: volume
             -
               uuid: 7c5dd13b82ae4f7d85450b045cfc7fae
-              name: 'Volume {#VOLUMEINDEX}: Status'
+              name: 'Volume {#VOLUMENAME}: Status'
               type: SNMP_AGENT
               snmp_oid: '1.3.6.1.4.1.24681.1.4.1.1.1.2.3.2.1.5.{#VOLUMEINDEX}'
               key: 'volume.status[{#VOLUMEINDEX}]'
@@ -926,7 +924,7 @@ zabbix_export:
                 -
                   uuid: 46bb8a7898f748d5ae7ac866a31f771f
                   expression: 'find(/Template SNMP QNAP/volume.status[{#VOLUMEINDEX}],,"iregexp","^Ready")=0'
-                  name: 'Faulty state of volume {#VOLUMEINDEX}'
+                  name: 'Faulty state of volume {#VOLUMENAME}'
                   opdata: 'Current state: {ITEM.VALUE}'
                   priority: DISASTER
                   description: 'Volume is in a faulty state. Check as soon as possible.'
