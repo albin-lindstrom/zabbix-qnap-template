@@ -122,6 +122,30 @@
                         </application>
                     </applications>
                 </item>
+                <item>
+                    <name>System: Uptime</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>iso.3.6.1.2.1.1.3.0</snmp_oid>
+                    <key>system.up.time</key>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>7d</trends>
+                    <units>B</units>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>0.01</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <applications>
+                        <application>
+                            <name>System Hardware</name>
+                        </application>
+                    </applications>
+                </item>
             </items>
             <discovery_rules>
                 <discovery_rule>
@@ -631,6 +655,14 @@ return value;</parameter>
                             <history>7d</history>
                             <trends>7d</trends>
                             <units>B</units>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>1024</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
                             <applications>
                                 <application>
                                     <name>Volumes</name>
@@ -669,6 +701,14 @@ return value;</parameter>
                             <history>7d</history>
                             <trends>7d</trends>
                             <units>B</units>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>1024</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
                             <applications>
                                 <application>
                                     <name>Volumes</name>
