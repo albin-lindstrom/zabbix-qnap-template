@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2022-02-18T17:07:37Z'
+  date: '2022-07-04T17:43:02Z'
   groups:
     -
       uuid: 36bff6c29af64692839d077febfc7079
@@ -10,9 +10,6 @@ zabbix_export:
       uuid: 8e02b71d47ee4b1e9631a7460da058a3
       template: 'Template SNMP QNAP'
       name: 'Template SNMP QNAP'
-      templates:
-        -
-          name: 'ICMP Ping'
       groups:
         -
           name: 'Templates/Network devices'
