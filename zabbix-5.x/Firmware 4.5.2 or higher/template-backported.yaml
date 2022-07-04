@@ -10,9 +10,6 @@ zabbix_export:
       uuid: 8e02b71d47ee4b1e9631a7460da058a3
       template: 'Template SNMP QNAP'
       name: 'Template SNMP QNAP'
-      templates:
-        -
-          name: 'ICMP Ping'
       groups:
         -
           name: 'Templates/Network devices'
